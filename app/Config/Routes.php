@@ -32,7 +32,7 @@ $routes->set404Override();
 
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Auth::login');
-$routes->get('/login/auth', 'Auth::authenticating');
+$routes->posta('/login/auth', 'Auth::authenticating');
 $routes->get('/register', 'Auth::register');
 /*
  * --------------------------------------------------------------------
