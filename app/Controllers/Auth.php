@@ -70,7 +70,8 @@ class Auth extends BaseController
         
         // Jika Username tidak ditemukan, Berikan pesan dan redirect ke halaman login
         session()->setFlashdata('msg', 'Username is incorrect.');
-        return redirect()->to(url_to('login'));
+        // return redirect()->to(url_to('login'));
+        echo "BERHASIL LOGIN";
     }
 
         
