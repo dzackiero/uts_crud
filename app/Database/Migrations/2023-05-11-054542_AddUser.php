@@ -15,6 +15,23 @@ class AddUser extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            'name' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'unique'     => true,
+            ],
+        ]);
+
+        $this->forge->addKey('id', true);
+        $this->forge->createTable('roles');
+
+        $this->forge->addField([
+            'id' => [
+                'type'           => 'INT',
+                'constraint'     => 12,
+                'unsigned'       => true,
+                'auto_increment' => true,
+            ],
             'username' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
@@ -47,22 +64,7 @@ class AddUser extends Migration
         $this->forge->addForeignKey('role', 'roles', 'id');
         $this->forge->createTable('users');
 
-        $this->forge->addField([
-            'id' => [
-                'type'           => 'INT',
-                'constraint'     => 12,
-                'unsigned'       => true,
-                'auto_increment' => true,
-            ],
-            'name' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'unique'     => true,
-            ],
-        ]);
 
-        $this->forge->addKey('id', true);
-        $this->forge->createTable('roles');
 
         if(ENVIRONMENT != 'production'){
             $seeder = \Config\Database::seeder();
