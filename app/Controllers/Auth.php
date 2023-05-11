@@ -61,17 +61,19 @@ class Auth extends BaseController
                 ]);
 
                 // Redirect ke halaman utama
-                return redirect()->to(url_to('home'));
+                // return redirect()->to(url_to('home'));
+                return "BERHASIL LOGIN";
             }
                 // Jika Password salah, Berikan pesan dan redirect ke halaman login
                 session()->setFlashdata('msg', 'Password is incorrect.');
-                return redirect()->to(url_to('login'));
+                // return redirect()->to(url_to('login'));
+                return "GAGAL LOGIN";
         }               
         
         // Jika Username tidak ditemukan, Berikan pesan dan redirect ke halaman login
         session()->setFlashdata('msg', 'Username is incorrect.');
         // return redirect()->to(url_to('login'));
-        echo "BERHASIL LOGIN";
+        return "GAGAL LOGIN";
     }
 
         
