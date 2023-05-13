@@ -7,6 +7,16 @@
       <p>Component ini di-style menggunakan "Pico.css". Harap hanya ambil component dan jangan hiraukan class-nya. Component disini untuk mengisikan value yang dioper sesuai ke view dari controller menggunakan <b>$namaModel["namaData"]</b></p>
     </hgroup>
 
+  <?php if(getRole()): ?>
+    <article>
+      <p><b>Session Data</b></p>
+      <p>Username (id): <?= session()->get('username') . " (" . session()->get('id') . ")" ?></p>
+      <p>Email : <?= session()->get('email') ?></p>
+      <p>Role Id : <?= session()->get('roleId') ?></p>
+      <p>Role: <?= session()->get('role') ?></p>
+    </article>
+  <?php endif ?>
+
     <article>
       <p ><span style="color: aqua;">$namaModel</span><span style="color: yellow;">[</span><span style="color: greenyellow;">'namaData</span><span style="color: yellow;">]</span> <span style="color: coral;">??</span> <span style="color: greenyellow;">''</span></p>
       <p style="text-align: center;">

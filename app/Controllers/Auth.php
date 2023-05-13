@@ -3,11 +3,12 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\RoleModel;
 use App\Models\UserModel;
 
 class Auth extends BaseController
 {
-    protected $helpers = ['user'];
+    protected $helpers = ['user', 'form'];
     
     /**
      * Method untuk menampilkan View "login". Tempat untuk user
@@ -49,31 +50,30 @@ class Auth extends BaseController
 
             // Jika Password Benar
             if ($isPasswordCorrect) {
-                $role = 
+                $roleModel = new RoleModel();
+                $role = $roleModel->find($user['role'])['name'];
                 // Masukkan data user di variable Session
                 // Agar dapat diakses di tiap page.
                 session()->set([
                     'id' => $user['id'],
                     'username' => $user['username'],
                     'email' => $user['email'],
-                    'role' => $user['role'],
+                    'roleId' => $user['role'],
+                    'role' => $role,
                     'isLoggedIn' => TRUE
                 ]);
 
                 // Redirect ke halaman utama
-                // return redirect()->to(url_to('home'));
-                return "BERHASIL LOGIN";
+                return redirect()->to(url_to('home'));
             }
                 // Jika Password salah, Berikan pesan dan redirect ke halaman login
                 session()->setFlashdata('msg', 'Password is incorrect.');
-                // return redirect()->to(url_to('login'));
-                return "GAGAL LOGIN";
+                return redirect()->to(url_to('login'));
         }               
         
         // Jika Username tidak ditemukan, Berikan pesan dan redirect ke halaman login
         session()->setFlashdata('msg', 'Username is incorrect.');
-        // return redirect()->to(url_to('login'));
-        return "GAGAL LOGIN";
+        return redirect()->to(url_to('login'));
     }
 
         
@@ -113,6 +113,7 @@ class Auth extends BaseController
             $data = [
                 'username' => $this->request->getVar('username'),
                 'email'    => $this->request->getVar('email'),
+                'role'    => 3,
                 //Hashing password agar terenkripsi 
                 'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
             ];

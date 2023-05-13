@@ -6,7 +6,7 @@
     <article>
       <h1 style="text-align: center;">Register</h1>
 
-      <?= validation_list_errors() ?>
+      <?= validation_list_errors() ?? '' ?>
       
       <form action="<?= base_url('register/store') ?>" method="POST">
         <label for="username">

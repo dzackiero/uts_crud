@@ -1,8 +1,30 @@
 <?php
-
   
   /**
-   * Mengambil role user.
+   * men-check apakah user termasuk di dalam role(s) yang dijadikan parameter. 
+   * akan mengembalikan TRUE jika $role == $userRole
+   *
+   * @param string $roles
+   * @return 
+   */
+  function hasRole(...$roles){
+    
+    foreach ($roles as $role) {
+      if ($role == getRole()) {
+        return true;
+      }
+    }
+
+    return false;
+  }  
+
+  function isLogin(){
+    return session()->get('isLoggedIn');
+  }
+
+
+  /**
+   * Mengambil role user. Jika tidak ada akan mengembalikan NULL
    *
    * @return string|null
    */
@@ -11,7 +33,7 @@
   }
   
   /**
-   * Mengambil username user.
+   * Mengambil username user. Jika tidak ada akan mengembalikan NULL
    *
    * @return string|null
    */
@@ -20,7 +42,7 @@
   }
 
   /**
-   * Mengambil id user.
+   * Mengambil id user. Jika tidak ada akan mengembalikan NULL
    *
    * @return string|null
    */
@@ -29,7 +51,7 @@
   }
   
     /**
-   * Mengambil email user.
+   * Mengambil email user. Jika tidak ada akan mengembalikan NULL
    *
    * @return string|null
    */
