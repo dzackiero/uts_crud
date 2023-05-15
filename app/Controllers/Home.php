@@ -8,6 +8,6 @@ class Home extends BaseController
 
     public function index()
     {
-        return view('pages/form');
+        return view('pages/home');
     }
 }
