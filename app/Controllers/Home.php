@@ -8,6 +8,8 @@ class Home extends BaseController
 
     public function index()
     {
-        return view('pages/home');
+        return view('pages/home', [
+            "products" => [1,2,3,4,5] // Dummy Data
+        ]);
     }
 }
