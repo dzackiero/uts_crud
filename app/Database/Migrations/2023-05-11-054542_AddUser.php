@@ -20,6 +20,18 @@ class AddUser extends Migration
                 'constraint' => '255',
                 'unique'     => true,
             ],
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ]
         ]);
 
         $this->forge->addKey('id', true);
@@ -32,10 +44,13 @@ class AddUser extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
-            'username' => [
+            'name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'unique'     => true,
+            ],
+            'phone' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
             ],
             'email' => [
                 'type'       => 'VARCHAR',
@@ -58,18 +73,15 @@ class AddUser extends Migration
                 'type' => 'DATETIME',
                 'null' => true,
             ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ]
         ]);
 
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('role', 'roles', 'id');
         $this->forge->createTable('users');
-
-
-
-        if(ENVIRONMENT != 'production'){
-            $seeder = \Config\Database::seeder();
-            $seeder->call('UserSeeder');
-        }
     }
 
     public function down()

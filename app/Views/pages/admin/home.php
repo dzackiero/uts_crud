@@ -3,7 +3,7 @@
 
   <div class="card bg-base-200 shadow-xl border-l-2 border-violet-500">
     <div class="card-body">
-      <h2 class="card-title text-2xl text-violet-500">Total Keuntungan</h2>
+      <h2 class="card-title text-2xl text-violet-500">Total Laba</h2>
       <p class="text-5xl">Rp120.000</p>
     </div>
   </div>

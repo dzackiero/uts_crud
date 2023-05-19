@@ -3,51 +3,20 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\OrderItemModel;
+use App\Models\OrderModel;
 
 class Admin extends BaseController
 {
     public function index()
     {
+        $orderItemModel = new OrderItemModel();
+        $orderModel = new OrderModel();
+        $succeedOrders = 
+        $orders = $orderItemModel->select('order_id, sum(item_price*quantity)')->groupBy('order_id')->findAll();
+
+
         return view("pages/admin/home");
     }
 
-    public function employees()
-    {
-        return view("pages/admin/table",[
-            'data' => "karyawan",
-            'model' => 'model'
-        ]);
-    }
-
-    public function customers()
-    {
-        return view("pages/admin/table",[
-            'data' => "pelanggan",
-            'model' => 'model'
-        ]);
-    }
-
-    public function products()
-    {
-        return view("pages/admin/table",[
-            'data' => "produk",
-            'model' => 'model'
-        ]);
-    }
-
-    public function categories()
-    {
-        return view("pages/admin/table",[
-            'data' => "kategori",
-            'model' => 'model'
-        ]);
-    }
-
-    public function transactions()
-    {
-        return view("pages/admin/table",[
-            'data' => "transaction",
-            'model' => 'model'
-        ]);
-    }
 }

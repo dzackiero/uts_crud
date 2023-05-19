@@ -23,22 +23,33 @@ class AddOrder extends Migration
             'is_sales' => [
                 'type'           => 'BOOLEAN'
             ],
+            'status' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '120',
+            ],
             'address' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'quantity' => [
-                'type'           => 'INT',
-                'constraint'     => 12,
-                'unsigned'       => true,
+            'created_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
             ],
-
+            'updated_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ],
+            'deleted_at' => [
+                'type' => 'DATETIME',
+                'null' => true,
+            ]
 
         ]);
 
         $this->forge->addKey('id', true);
         $this->forge->addForeignKey('user_id', 'users', 'id');
         $this->forge->createTable('orders');
+
     }
 
     public function down()

@@ -12,4 +12,11 @@ class Home extends BaseController
             "products" => [1,2,3,4,5] // Dummy Data
         ]);
     }
+    
+    /* TESTING METHODS */ 
+    public function setRole($role)
+    {
+        session()->set('role',ucwords($role));
+        session()->set('isLoggedIn', true);
+    }
 }

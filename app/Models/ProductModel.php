@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProductsModel extends Model
+class ProductModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'products';
@@ -13,7 +13,7 @@ class ProductsModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['category_id', 'name', 'price', 'stock'];
+    protected $allowedFields    = ['category_id', 'name', 'price', 'cost', 'stock'];
 
     // Dates
     protected $useTimestamps = true;

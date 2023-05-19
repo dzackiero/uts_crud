@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use App\Controllers\Home;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -26,7 +27,27 @@ class AuthGuard implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        $publicUrl = ['login*', 'register*','/', 'role*'];
+        $roleRestrictedUrl = [
+            'Super Admin' => [''],
+            'Admin' => ['admin/employees*'],
+            'User' => ['admin*'],
+        ];
+
+        // Public Accesable Check
+        if($this->hasUrl($publicUrl)){
+            return;
+        }
+
+        // Is Public
+        if (!$this->isLogin()) {
+            return redirect()->to(url_to('login'));
+        }
+
+        // Role filter (Dont Have Permission)
+        if($this->hasUrl($roleRestrictedUrl[$this->getRole()])){
+            return redirect()->to(url_to('home'));
+        }
     }
 
     /**
@@ -45,4 +66,60 @@ class AuthGuard implements FilterInterface
     {
         //
     }
+    
+    /**
+     * hasUrl
+     *
+     * @param  array $urls
+     * @return boolean
+     */
+    public function hasUrl($urls)
+    {  
+        foreach($urls as $url){
+            if (url_is($url)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * men-check apakah user termasuk di dalam role(s) yang dijadikan parameter. 
+     * akan mengembalikan TRUE jika $role == $userRole
+     *
+     * @param string $roles
+     * @return boolean
+     */
+    function hasRole(...$roles){
+        
+        foreach ($roles as $role) {
+        if ($role == getRole()) {
+            return true;
+        }
+        }
+
+        return false;
+    }  
+    
+    /**
+     * isLogin
+     *
+     * @return boolean|null
+     */
+    function isLogin(){
+        return session()->get('isLoggedIn');
+    }
+
+
+    /**
+     * Mengambil role user. Jika tidak ada akan mengembalikan NULL
+     *
+     * @return string|null
+     */
+    function getRole(){
+        return session()->get('role');
+    }
+
 }
