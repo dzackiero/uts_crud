@@ -67,6 +67,10 @@ class AddProducts extends Migration
                 'constraint' => 120,
                 'unsigned' => true,
             ],
+            'image' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,

@@ -26,7 +26,7 @@
             <th><?= $i ?></th>
             <th><?= $row['id'] ?></th>
             <th><?= $users[$row['user_id']] ?></th>
-            <th><?= $row['is_sales'] ? 'Penjualan' : 'Pembelian' ?></th>
+            <th><?= $row['is_sales'] == '1' ? 'Penjualan' : 'Pembelian' ?></th>
             <th><?= number_to_currency($prices[$row['id']], 'IDR') ?></th>
             <th><?= $row['updated_at'] ?></th>
             <th><a href="<?= base_url("/admin/transactions/" . $row['id']) ?>" class="text-violet-500 underline text-center">Detail</a></th>

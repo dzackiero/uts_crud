@@ -9,7 +9,7 @@
     <div class="flex flex-col gap-10">
       <!-- Order Details -->
       <div class="rounded-lg border-2 border-gray-600 w-full px-10 py-6 flex flex-col gap-4">
-        <h1 class="text-3xl font-semibold">Detail Transaksi</h1>
+        <h1 class="text-3xl font-semibold">Keterangan Transaksi</h1>
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text">Pembuat Transaksi</span>
@@ -23,8 +23,8 @@
           </label>
           <select class="select select-bordered cursor-default" name="is_sales" id="is_sales" disabled>
             <option selected disabled>Pilih Jenis Transaksi</option>
-            <option value="true" <?= isset($transaction) && $transaction['is_sales'] == true ? 'selected' : '' ?>>Penjualan</option>
-            <option value="false" <?= isset($transaction) && $transaction['is_sales'] == false ? 'selected' : '' ?>>Pembelian</option>
+            <option value="true" <?= isset($transaction) && $transaction['is_sales'] == "1" ? 'selected' : '' ?>>Penjualan</option>
+            <option value="false" <?= isset($transaction) && $transaction['is_sales'] == "0" ? 'selected' : '' ?>>Pembelian</option>
           </select>
         </div>
 

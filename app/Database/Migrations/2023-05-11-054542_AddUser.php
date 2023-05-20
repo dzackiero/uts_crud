@@ -44,15 +44,16 @@ class AddUser extends Migration
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
+            'email' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+                'unique'     => true,
+            ],
             'name' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
             'phone' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-            ],
-            'email' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],

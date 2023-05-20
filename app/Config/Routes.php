@@ -30,9 +30,6 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-// TESTING
-$routes->get('/role/(:any)', 'Home::setRole/$1', ['as' => 'setRole']);
-
 // Admin
 $routes->get('/admin', 'Admin::index', ['as' => 'admin']);
 
@@ -76,8 +73,6 @@ $routes->get('/admin/transactions/(:num)', 'Transaction::get/$1', ['as' => 'edit
 
 // User
 $routes->get('/', 'Home::index', ['as' => 'home']);
-
-
 
 // Login
 $routes->get('/login', 'Auth::login', ['as' => 'login']);

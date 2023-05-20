@@ -34,8 +34,7 @@
               </div>
             </label>
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-200 rounded-box w-52">
-              <li><a href="<?= base_url() ?>">Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a href="<?= base_url('logout') ?>">Logout</a></li>
             </ul>
           </div>
         </div>

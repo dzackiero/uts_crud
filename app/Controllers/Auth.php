@@ -18,6 +18,8 @@ class Auth extends BaseController
      */
     public function login()
     {
+        if(isLogin()){ return redirect()->to(url_to('home'));}
+
         return view('pages/auth/login');
     }
     
@@ -34,13 +36,13 @@ class Auth extends BaseController
 
         // Mengambil data username dan password dari POST Request yang telah di submit user di view login
         $data = [
-            'username' => $this->request->getPost('username'),
+            'email' => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
         ];
 
         // Mencocokan username yang dimasukkan dengan yang ada di database
         // Jika ada, Simpan data row tersebut di variable $user
-        $user = $userModel->where('username', $data['username'])->first();
+        $user = $userModel->where('email', $data['email'])->first();
 
         // Jika User ditemukan
         if($user){
@@ -56,7 +58,6 @@ class Auth extends BaseController
                 // Agar dapat diakses di tiap page.
                 session()->set([
                     'id' => $user['id'],
-                    'username' => $user['username'],
                     'email' => $user['email'],
                     'roleId' => $user['role'],
                     'role' => $role,

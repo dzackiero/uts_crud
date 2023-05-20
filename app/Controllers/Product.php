@@ -18,7 +18,7 @@ class Product extends BaseController
 
     public function index()
     {
-        $products = $this->productModel->findAll();
+        $products = $this->productModel->orderBy('created_at','')->findAll();
         $categoryModel = new CategoryModel();
         $categories = $categoryModel->findAll();
 
@@ -49,11 +49,19 @@ class Product extends BaseController
     public function store()
     {
         $data = $this->request->getVar();
+        $image = $this->request->getFile("sampul");
+        $imageName = str_replace(' ', '-',$data['name']) . '-' .str_replace(' ', '-',$data['category']);
+
+        if($image->move('img', $imageName)){
+            $imageName = "/img/$imageName";
+        }
+
         $this->productModel->insert([
             'name' => $data['name'],
             'price' => $data['price'],
             'cost' => $data['cost'],
             'stock' => $data['stock'],
+            'image' => $imageName,
             'category_id' => $data['category'],
         ]);
         
@@ -78,11 +86,18 @@ class Product extends BaseController
     public function update(int $id)
     {
         $data = $this->request->getVar();
+        $image = $this->request->getFile("sampul");
+        $imageName = str_replace(' ', '-',$data['name']) . '-' .str_replace(' ', '-',$data['category']);
+
+        if($image->move('img', $imageName)){
+            $imageName = "/img/$imageName";
+        }
         $this->productModel->update($id,[
             'name' => $data['name'],
             'price' => $data['price'],
             'cost' => $data['cost'],
             'stock' => $data['stock'],
+            'image' => $imageName,
             'category_id' => $data['category'],
         ]);
         
@@ -95,8 +110,4 @@ class Product extends BaseController
 
         return redirect()->to(url_to('products'));
     }
-
-
-
-
 }

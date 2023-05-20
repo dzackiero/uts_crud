@@ -15,7 +15,7 @@
       </p>
 
       <form action="login/auth" method="post">
-        <input type="text" name="username" id="username" placeholder="Username">
+        <input type="text" name="email" id="email" placeholder="Email">
         <input type="password" name="password" id="password" placeholder="password">
         <button>Submit</button>
       </form>

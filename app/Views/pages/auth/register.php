@@ -9,10 +9,6 @@
       <?= validation_list_errors() ?? '' ?>
       
       <form action="<?= base_url('register/store') ?>" method="POST">
-        <label for="username">
-          Username
-          <input type="text" name="username" id="username" placeholder="Username">
-        </label>
         <label for="email">
           Email
           <input type="email" name="email" id="email" placeholder="Email">

@@ -27,7 +27,7 @@ class Transaction extends BaseController
 
     public function index()
     {
-        $transactions = $this->orderModel->findAll();
+        $transactions = $this->orderModel->orderBy('created_at','DESC')->findAll();
         $orderItems = $this->orderItemModel->select('order_id, sum(item_price*quantity) as "Total Price"')->groupBy('order_id')->findAll();
         $users = $this->userModel->select('id, name')->findAll();
         $usersId = [];
@@ -79,13 +79,25 @@ class Transaction extends BaseController
         $productCount = $data['productCount'];
         $productModel = new ProductModel();
         
-        $isSales = $data['is_sales'];
+        $isSales = $data['is_sales'] == 'true' ? true : false;
+
+        for($i = 0; $i < $productCount; $i++) { 
+            $product = $productModel->find($data["product$i"]);
+            
+            if ($isSales && $data["quantity$i"] > $product['stock']) {
+                session()->setFlashdata('msg', "Stok tidak mencukupi!");
+                return redirect()->to(url_to('create_transaction'));
+            }
+
+        }
+
 
         // Make Order
         $orderId = $this->orderModel->insert([
             'user_id' => $data['user_id'],
-            'is_sales' => $data['is_sales'],
+            'is_sales' => $isSales,
             'address' => $data['address'],
+            'status' => 'success',
         ]);
 
         for($i = 0; $i < $productCount; $i++) { 
@@ -97,7 +109,19 @@ class Transaction extends BaseController
             ];
 
             $item['item_price'] =  $isSales ? $product['price'] : $product['cost'];
+
+            // Checking if its more than stock has
+            if ($isSales && $item['quantity'] > $product['stock']) {
+                redirect()->to(url_to('create_transaction'));
+            }
+
             $this->orderItemModel->insert($item);
+
+            //adding or decreasing the product
+            $quantity = $isSales ? -1*($item["quantity"]) : $item["quantity"];
+            $productModel->update($item['product_id'], [
+                'stock' => $product['stock'] + $quantity,
+            ]);
         }
 
         return redirect()->to(url_to('transactions'));
@@ -106,7 +130,7 @@ class Transaction extends BaseController
     public function get(int $id)
     {
         // Getting this transaction
-        $transaction = $this->orderModel->first($id);
+        $transaction = $this->orderModel->find($id);
         
         // Getting all the items
         $transactionItems = $this->orderItemModel->where('order_id', $id)->findAll();
@@ -115,7 +139,7 @@ class Transaction extends BaseController
         //Getting all the product
         $productIds =[];
         foreach($transactionItems as $item){
-            $productIds[] = $item['id'];
+            $productIds[] = $item['product_id'];
         }
 
         $productModel = new ProductModel();
@@ -124,10 +148,8 @@ class Transaction extends BaseController
         foreach ($products as $product) {
             $productsId[$product['id']] = $product['name'];
         }
-
         // Getting the user
         $user = $this->userModel->find($transaction['user_id']);
-
         // Getting Total
         $total = $this->orderItemModel->select('order_id, sum(item_price*quantity) AS total')->where('order_id', $id)->groupBy('order_id')->find()[0];
         return view("pages/admin/transaction/detail", [

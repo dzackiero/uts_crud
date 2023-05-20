@@ -19,7 +19,7 @@ class Customer extends BaseController
 
     public function index()
     {
-        $customers = $this->UserModel->where('role',3)->findAll();
+        $customers = $this->UserModel->where('role',3)->orderBy('created_at','DESC')->findAll();
         $roleModel = new RoleModel();
         $roles = $roleModel->findAll();
         $idRoles = [];

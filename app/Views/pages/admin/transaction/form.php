@@ -8,7 +8,12 @@
     <form action="<?= $method ?>" method="post" class="flex flex-col gap-10">
       <!-- Order Details -->
       <div class="rounded-lg border-2 border-gray-600 w-full px-10 py-6 flex flex-col gap-4">
-        <h1 class="text-3xl font-semibold">Detail Transaksi</h1>
+        <div class="flex justify-between">
+          <h1 class="text-3xl font-semibold">Detail Transaksi</h1>
+          <?php if(session()->getFlashdata('msg')): ?>
+            <h1 class="text-xl font-semibold text-red-500"><?= session()->getFlashdata('msg') ?></h1>
+          <?php endif ?>
+        </div>
         <div class="form-control w-full">
           <label class="label">
             <span class="label-text">Pembuat Transaksi</span>
