@@ -13,7 +13,7 @@ class ProductModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['category_id', 'name', 'price', 'cost', 'stock', 'image'];
+    protected $allowedFields    = ['category_id', 'name', 'price', 'cost', 'stock', 'image', 'description'];
 
     // Dates
     protected $useTimestamps = true;

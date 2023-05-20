@@ -30,6 +30,13 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+// Public
+$routes->get('/category/(:num)', 'Home::getByCategory/$1', ['as' => 'home_category']);
+$routes->get('/product', 'Home::getAll', ['as' => 'home_all']);
+$routes->get('/product/(:num)', 'Home::productDetail/$1', ['as' => 'home_product']);
+
+$routes->post('/addchart', 'Home::addChart', ['as' => 'add_chart']);
+
 // Admin
 $routes->get('/admin', 'Admin::index', ['as' => 'admin']);
 

@@ -61,6 +61,7 @@ class Product extends BaseController
             'price' => $data['price'],
             'cost' => $data['cost'],
             'stock' => $data['stock'],
+            'description' => $data['description'],
             'image' => $imageName,
             'category_id' => $data['category'],
         ]);
@@ -97,6 +98,7 @@ class Product extends BaseController
             'price' => $data['price'],
             'cost' => $data['cost'],
             'stock' => $data['stock'],
+            'description' => $data['description'],
             'image' => $imageName,
             'category_id' => $data['category'],
         ]);
