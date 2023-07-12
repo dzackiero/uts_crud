@@ -27,7 +27,7 @@ class AuthGuard implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $publicUrl = ['login*', 'register*','/', 'role*'];
+        $publicUrl = ['login*', 'register*','/'];
         $roleRestrictedUrl = [
             'Super Admin' => [''],
             'Admin' => ['admin/employees*'],
